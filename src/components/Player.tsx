@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row'
 import XPModal from './Modals/XPModal';
-import NameChangeModal from './Modals/NameChangeModal';
 
 function Player() {
   const [characterName, setCharacterName] = useState("Con Johnstantine")

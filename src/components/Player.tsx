@@ -1,25 +1,16 @@
-import { ChangeEvent, useState, KeyboardEvent } from 'react';
+import { ChangeEvent, useState, KeyboardEvent, useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import XPModal from './Modals/XPModal';
+import { XPContext } from '../store/xp-context';
 
 function Player() {
+    const { xp } = useContext(XPContext);
     const [characterName, setCharacterName] = useState('Con Johnstantine');
-    const [xp, setXP] = useState(0);
     const [showingXPModal, setShowingXPModal] = useState(false);
     const [editingName, setEditingName] = useState(false);
-
-    const addXP = () => {
-        setXP(xp + 1);
-    };
-
-    const reduceXP = () => {
-        if (xp > 0) {
-            setXP(xp - 1);
-        }
-    };
 
     const toggleEditingName = () => {
         setEditingName(!editingName);
@@ -73,7 +64,7 @@ function Player() {
                     XP: {xp}
                 </Button>
             </Col>
-            <XPModal xp={xp} show={showingXPModal} hide={toggleXPModal} add={addXP} reduce={reduceXP} />
+            <XPModal show={showingXPModal} hide={toggleXPModal} />
         </Row>
     );
 }

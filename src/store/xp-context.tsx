@@ -14,7 +14,6 @@ interface XPContextProps {
 }
 
 const xpReducer = (state: number, action: { type: string; payload: number }) => {
-    // swtich (action.type)
     switch (action.type) {
         case ADD_XP:
             return state + action.payload;

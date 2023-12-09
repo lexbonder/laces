@@ -16,10 +16,10 @@ const XPModal = ({ show, hide }: XPModalProps) => {
                 <strong>{xp}</strong>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={reduceXP} variant="outline-warning">
+                <Button onClick={() => reduceXP()} variant="outline-warning">
                     -
                 </Button>
-                <Button onClick={addXP} variant="outline-success">
+                <Button onClick={() => addXP()} variant="outline-success">
                     +
                 </Button>
                 <Button onClick={hide}>Done</Button>

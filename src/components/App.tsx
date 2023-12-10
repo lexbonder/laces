@@ -1,17 +1,17 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import DoAnything from './DoAnything';
 import Player from './Player';
-import { useState } from 'react';
-// import DoSkillModal from "./Modals/DoSkillModal";
+import DoSkillModal from './Modals/DoSkillModal';
 import XPContextProvider from '../store/xp-context';
 
 const App = () => {
     const [showDoSkillModal, setShowDoSkillModal] = useState(false);
 
-    const openSkillModal = () => {
-        setShowDoSkillModal(true);
+    const toggleSkillModal = () => {
+        setShowDoSkillModal(!showDoSkillModal);
     };
 
     return (
@@ -31,8 +31,8 @@ const App = () => {
                 <main className="flex-fill">
                     <p className="text-center">This is where the list goes.</p>
                 </main>
-                <DoAnything openSkillModal={openSkillModal} />
-                {/* <DoSkillModal skillName="Do Anything" level={1} /> */}
+                <DoAnything openSkillModal={toggleSkillModal} />
+                <DoSkillModal skillName="Do Anything" level={1} show={showDoSkillModal} hide={toggleSkillModal} />
             </XPContextProvider>
         </Container>
     );

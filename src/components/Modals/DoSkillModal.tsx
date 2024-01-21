@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { rollDice } from '../RollDice';
-import * as dice from '../../assets';
+import { rollDice } from '../../utils/roll-dice';
+import RollingDie from '../RollingDie';
+import Die from '../Die';
 
 interface DoSkillModalProps {
     skillName: string;
@@ -21,27 +23,36 @@ const DoSkillModal = ({ skillName, level, show, hide }: DoSkillModalProps) => {
         setRolled(true);
     };
 
+    const handleResetModal = () => {
+        setDiceToRender([]);
+        setRolled(false);
+    };
+
     return (
-        <Modal show={show} onHide={hide}>
+        <Modal show={show} onExited={handleResetModal}>
             <Modal.Header closeButton>
-                <Modal.Title>{skillName}</Modal.Title>
+                <Modal.Title>
+                    {skillName} {level}
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {diceToRender.length ? (
-                    diceToRender.map((roll) => {
-                        const result = ('dice' + roll) as keyof typeof dice;
-                        return <img src={dice[result]} width={40} />;
-                    })
-                ) : (
-                    <span>Best of luck!</span>
-                )}
+                {rolled
+                    ? diceToRender.map((roll, index) => <Die key={index} value={roll} />)
+                    : [...Array(level)].map((_, index) => <RollingDie key={index} />)}
             </Modal.Body>
             <Modal.Footer>
                 {rolled ? (
                     <>
-                        <Button onClick={hide} variant="outline-info">
-                            Cancel
-                        </Button>
+                        <div>
+                            <Form.Check type="switch" label="Gain new skill" />
+                        </div>
+                        <div>
+                            <Button onClick={hide} variant="outline-warning">
+                                Cancel
+                            </Button>
+                            <Button variant="danger">Fail (+1 XP)</Button>
+                            <Button variant="success">Pass</Button>
+                        </div>
                     </>
                 ) : (
                     <Button onClick={handleDiceRoll}>Roll</Button>

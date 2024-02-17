@@ -8,11 +8,9 @@ const RollingDie = () => {
         const rollingAnimation = setInterval(() => {
             setDie(Math.ceil(Math.random() * 6));
         }, 100);
-        console.log('animation start');
 
         return () => {
             clearInterval(rollingAnimation);
-            console.log('animation end');
         };
     }, []);
 

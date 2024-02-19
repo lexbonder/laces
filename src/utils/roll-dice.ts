@@ -1,8 +1,4 @@
-interface IDiceResult {
-    rolls: number[];
-    total: number;
-    pipsToMax: number;
-}
+import { IDiceResult } from '../types';
 
 export const rollDice = (amount: number): IDiceResult => {
     const rolls: number[] = [];

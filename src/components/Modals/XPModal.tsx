@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { XPContext } from '../../store/xp-context';
+import { IXPModalProps } from '../../types';
 
-const XPModal = ({ show, hide }: XPModalProps) => {
+const XPModal = ({ show, hide }: IXPModalProps) => {
     const { xp, addXP, reduceXP } = useContext(XPContext);
 
     return (
@@ -27,10 +28,5 @@ const XPModal = ({ show, hide }: XPModalProps) => {
         </Modal>
     );
 };
-
-interface XPModalProps {
-    show: boolean;
-    hide: () => void;
-}
 
 export default XPModal;

@@ -6,12 +6,24 @@ import DoAnything from './DoAnything';
 import Player from './Player';
 import DoSkillModal from './Modals/DoSkillModal';
 import XPContextProvider from '../store/xp-context';
+import SkillContextProvider from '../store/skill-context';
+import NewSkillModal from './Modals/NewSkillModal';
+import SkillList from './SkillList';
 
 const App = () => {
     const [showDoSkillModal, setShowDoSkillModal] = useState(false);
+    const [activeSkill, setActiveSkill] = useState<{ name: string; level: number }>({ name: '', level: 0 });
+    const [showNewSkillModal, setShowNewSkillModal] = useState(false);
 
-    const toggleSkillModal = () => {
-        setShowDoSkillModal(!showDoSkillModal);
+    const openDoSkillModal = (name: string, level: number) => {
+        setActiveSkill({ name, level });
+        setShowDoSkillModal(true);
+    };
+
+    // const openNewSkillModal = (prevLevel: number) => {};
+
+    const resetActiveSkill = () => {
+        setActiveSkill({ name: '', level: 0 });
     };
 
     return (
@@ -27,12 +39,26 @@ const App = () => {
                 </h2>
             </Row>
             <XPContextProvider>
-                <Player />
+                <Player showNewSkillModal={() => setShowNewSkillModal(true)} />
                 <main className="flex-fill">
-                    <p className="text-center">This is where the list goes.</p>
+                    <SkillContextProvider>
+                        <SkillList />
+                        <NewSkillModal
+                            prevLevel={activeSkill.level}
+                            show={showNewSkillModal}
+                            hide={() => setShowNewSkillModal(false)}
+                            resetActiveSkill={resetActiveSkill}
+                        />
+                    </SkillContextProvider>
                 </main>
-                <DoAnything openSkillModal={toggleSkillModal} />
-                <DoSkillModal skillName="Do Anything" level={1} show={showDoSkillModal} hide={toggleSkillModal} />
+                <DoAnything openSkillModal={openDoSkillModal} />
+                <DoSkillModal
+                    skillName={activeSkill.name}
+                    level={activeSkill.level}
+                    show={showDoSkillModal}
+                    hide={() => setShowDoSkillModal(false)}
+                    openNewSkillModal={() => setShowNewSkillModal(true)}
+                />
             </XPContextProvider>
         </Container>
     );

@@ -1,17 +1,12 @@
 import { ReactNode, createContext, useReducer } from 'react';
 import { ADD_XP, REDUCE_XP } from '../action-types';
+import { IXPContext } from '../types';
 
-export const XPContext = createContext<XPContextProps>({
+export const XPContext = createContext<IXPContext>({
     xp: 0,
     addXP: () => {},
     reduceXP: () => {},
 });
-
-interface XPContextProps {
-    xp: number;
-    addXP: () => void;
-    reduceXP: () => void;
-}
 
 const xpReducer = (state: number, action: { type: string; payload: number }) => {
     switch (action.type) {

@@ -1,8 +1,5 @@
+import { IDie } from '../types';
 import * as dice from '../assets';
-
-interface IDie {
-    value: number;
-}
 
 const Die = ({ value }: IDie) => {
     const result = ('dice' + value) as keyof typeof dice;

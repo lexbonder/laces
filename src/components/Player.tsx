@@ -1,12 +1,13 @@
-import { ChangeEvent, useState, KeyboardEvent, useContext } from 'react';
+import { ChangeEvent, useState, KeyboardEvent, useContext, FC } from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import XPModal from './Modals/XPModal';
 import { XPContext } from '../store/xp-context';
+import { IPlayerProps } from '../types';
 
-function Player() {
+const Player: FC<IPlayerProps> = ({ showNewSkillModal }) => {
     const { xp } = useContext(XPContext);
     const [characterName, setCharacterName] = useState('Con Johnstantine');
     const [showingXPModal, setShowingXPModal] = useState(false);
@@ -60,6 +61,9 @@ function Player() {
                 </Form>
             </Col>
             <Col className="d-flex justify-content-end">
+                <Button className="align-self-center me-3" onClick={showNewSkillModal}>
+                    Add Skill
+                </Button>
                 <Button className="align-self-center" onClick={toggleXPModal}>
                     XP: {xp}
                 </Button>
@@ -67,6 +71,6 @@ function Player() {
             <XPModal show={showingXPModal} hide={toggleXPModal} />
         </Row>
     );
-}
+};
 
 export default Player;

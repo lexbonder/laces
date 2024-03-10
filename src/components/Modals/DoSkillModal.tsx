@@ -11,7 +11,7 @@ import Die from '../Die';
 import { XPContext } from '../../store/xp-context';
 import { IDoSkillModalProps } from '../../types';
 
-const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal }: IDoSkillModalProps) => {
+const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetActiveSkill }: IDoSkillModalProps) => {
     const { xp, addXP, reduceXP } = useContext(XPContext);
     const [rolled, setRolled] = useState(false);
     const [total, setTotal] = useState(0);
@@ -31,6 +31,9 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal }: IDoSk
     };
 
     const handleResetModal = () => {
+        if (!newSkillChecked) {
+            resetActiveSkill();
+        }
         setDiceToRender([]);
         setNewSkillChecked(false);
         setRolled(false);

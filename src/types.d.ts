@@ -13,8 +13,14 @@ export interface IDiceResult {
     pipsToMax: number;
 }
 
-export interface IDoAnythingProps {
+export interface ISkillListProps {
     openSkillModal: (name: string, level: number) => void;
+}
+
+export interface ISkillProps {
+    openSkillModal: (name: string, level: number) => void;
+    name: string;
+    level: number;
 }
 
 export interface IDoSkillModalProps {
@@ -23,6 +29,7 @@ export interface IDoSkillModalProps {
     show: boolean;
     hide: () => void;
     openNewSkillModal: () => void;
+    resetActiveSkill: () => void;
 }
 
 export interface INewSkillModalProps {
@@ -32,7 +39,7 @@ export interface INewSkillModalProps {
     resetActiveSkill: () => void;
 }
 
-export interface IPlayerProps {
+export interface IAddSkillButtonProps {
     showNewSkillModal: () => void;
 }
 

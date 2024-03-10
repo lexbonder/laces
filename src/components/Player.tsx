@@ -1,24 +1,17 @@
-import { ChangeEvent, useState, KeyboardEvent, useContext, FC } from 'react';
+import { ChangeEvent, useState, KeyboardEvent } from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import XPModal from './Modals/XPModal';
-import { XPContext } from '../store/xp-context';
-import { IPlayerProps } from '../types';
 
-const Player: FC<IPlayerProps> = ({ showNewSkillModal }) => {
-    const { xp } = useContext(XPContext);
+// change this to "character name" and move it to the navbar!
+
+const Player = () => {
     const [characterName, setCharacterName] = useState('Con Johnstantine');
-    const [showingXPModal, setShowingXPModal] = useState(false);
     const [editingName, setEditingName] = useState(false);
 
     const toggleEditingName = () => {
         setEditingName(!editingName);
-    };
-
-    const toggleXPModal = () => {
-        setShowingXPModal(!showingXPModal);
     };
 
     const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,15 +53,6 @@ const Player: FC<IPlayerProps> = ({ showNewSkillModal }) => {
                     </Form.Group>
                 </Form>
             </Col>
-            <Col className="d-flex justify-content-end">
-                <Button className="align-self-center me-3" onClick={showNewSkillModal}>
-                    Add Skill
-                </Button>
-                <Button className="align-self-center" onClick={toggleXPModal}>
-                    XP: {xp}
-                </Button>
-            </Col>
-            <XPModal show={showingXPModal} hide={toggleXPModal} />
         </Row>
     );
 };

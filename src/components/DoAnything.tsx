@@ -1,15 +1,13 @@
-import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { IDoAnythingProps } from '../types';
+import { ISkillListProps } from '../types';
+import Skill from './Skill';
 
-function DoAnything({ openSkillModal }: IDoAnythingProps) {
+function DoAnything({ openSkillModal }: ISkillListProps) {
     return (
-        <Row className="border-top border-dark pt-2">
+        <Row className="pt-2">
             <Col className="text-center">
-                <Button variant="dark" size="lg" onClick={() => openSkillModal('Do anything', 1)}>
-                    Do Anything 🎲
-                </Button>
+                <Skill name="Do Anything" level={1} openSkillModal={openSkillModal} />
             </Col>
         </Row>
     );

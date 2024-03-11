@@ -15,7 +15,7 @@ const NewSkillModal: FC<INewSkillModalProps> = ({ prevLevel, show, hide, resetAc
         if (prevLevel) {
             setSkillLevel(prevLevel + 1);
         }
-    }, []);
+    }, [prevLevel]);
 
     const decrement = () => {
         if (skillLevel > 2) {

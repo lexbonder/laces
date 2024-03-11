@@ -3,15 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import DoAnything from './DoAnything';
-import Player from './Player';
+import CharacterName from './CharacterName';
 import DoSkillModal from './Modals/DoSkillModal';
-import XPContextProvider from '../store/xp-context';
-import SkillContextProvider from '../store/skill-context';
 import NewSkillModal from './Modals/NewSkillModal';
 import SkillList from './SkillList';
 import ManageXPButton from './ManageXPButton';
 import AddSkillButton from './AddSkillButton';
+import RootProvider from './RootProvider';
 
 const App = () => {
     const [showDoSkillModal, setShowDoSkillModal] = useState(false);
@@ -23,19 +21,17 @@ const App = () => {
         setShowDoSkillModal(true);
     };
 
-    // const openNewSkillModal = (prevLevel: number) => {};
-
     const resetActiveSkill = () => {
         setActiveSkill({ name: '', level: 0 });
     };
 
     return (
-        <div className="vh-100 d-flex flex-column bg-light">
-            <XPContextProvider>
-                <Navbar sticky="top" expand="lg">
+        <RootProvider>
+            <div className="vh-100 bg-light">
+                <Navbar sticky="top" expand="lg" className="border-bottom">
                     <Container fluid>
-                        Stuff before
-                        <Navbar.Brand>
+                        <CharacterName />
+                        <Navbar.Brand className="text-center me-0" style={{ flex: 1 }}>
                             <span className="h1">Laces</span>
                             <br />
                             <span className="h6">
@@ -46,16 +42,14 @@ const App = () => {
                                 companion app
                             </span>
                         </Navbar.Brand>
-                        <Nav>
+                        <Nav className="justify-content-end" style={{ flex: 1 }}>
                             <AddSkillButton showNewSkillModal={() => setShowNewSkillModal(true)} />
                             <ManageXPButton />
                         </Nav>
                     </Container>
                 </Navbar>
-                <Player />
-                <DoAnything openSkillModal={openDoSkillModal} />
-                <main className="flex-fill">
-                    <SkillContextProvider>
+                <Container fluid>
+                    <main className="flex-fill">
                         <SkillList openSkillModal={openDoSkillModal} />
                         <NewSkillModal
                             prevLevel={activeSkill.level}
@@ -63,8 +57,8 @@ const App = () => {
                             hide={() => setShowNewSkillModal(false)}
                             resetActiveSkill={resetActiveSkill}
                         />
-                    </SkillContextProvider>
-                </main>
+                    </main>
+                </Container>
                 <DoSkillModal
                     skillName={activeSkill.name}
                     level={activeSkill.level}
@@ -73,8 +67,8 @@ const App = () => {
                     openNewSkillModal={() => setShowNewSkillModal(true)}
                     resetActiveSkill={resetActiveSkill}
                 />
-            </XPContextProvider>
-        </div>
+            </div>
+        </RootProvider>
     );
 };
 

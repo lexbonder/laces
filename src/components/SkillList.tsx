@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { SkillContext } from '../store/skill-context';
 import Skill from './Skill';
 import { ISkill, ISkillListProps } from '../types';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const SkillList = ({ openSkillModal }: ISkillListProps) => {
     const { skills } = useContext(SkillContext);
@@ -20,18 +21,20 @@ const SkillList = ({ openSkillModal }: ISkillListProps) => {
         setSkillsByLevel(skillTree);
     }, [skills]);
 
-    return (
-        <ListGroup variant="flush">
-            {skillsByLevel.map((level, index) => (
-                <ListGroup.Item key={index}>
-                    <p>Level: {index + 1}</p>
-                    {level.map((skill) => (
-                        <Skill key={skill.id} name={skill.name} level={skill.level} openSkillModal={openSkillModal} />
-                    ))}
-                </ListGroup.Item>
-            ))}
-        </ListGroup>
-    );
+    return skillsByLevel.map((level, index) => (
+        <section key={index} className={`p-3 position-relative ${index % 2 === 0 ? 'bg-secondary' : ''}`}>
+            <Row className="position-absolute">
+                <p>Level: {index + 1}</p>
+            </Row>
+            <Row className="justify-content-center gap-3">
+                {level.map((skill) => (
+                    <Col key={skill.id} lg="3" className="text-center">
+                        <Skill name={skill.name} level={skill.level} openSkillModal={openSkillModal} />
+                    </Col>
+                ))}
+            </Row>
+        </section>
+    ));
 };
 
 export default SkillList;

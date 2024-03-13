@@ -20,7 +20,7 @@ const xpReducer = (state: number, action: { type: string; payload: number }) => 
 };
 
 const XPContextProvider = ({ children }: { children: ReactNode }) => {
-    const [xp, dispatch] = useReducer(xpReducer, 0);
+    const [xp, dispatch] = useReducer(xpReducer, 50); // Test only: set to 50
 
     const addXP = (amount = 1) => {
         dispatch({

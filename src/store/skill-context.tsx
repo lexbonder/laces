@@ -2,6 +2,7 @@ import { ReactNode, createContext, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
 import { Actions, ISkill, ISkillContext } from '../types';
 import { ADD_SKILL, DELETE_SKILL, EDIT_SKILL, isGenericAction } from '../action-types';
+import { testData } from './test-skills';
 
 export const SkillContext = createContext<ISkillContext>({
     skills: [],
@@ -31,13 +32,17 @@ const skillReducer = (
 };
 
 const SkillContextProvider = ({ children }: { children: ReactNode }) => {
-    const [skills, dispatch] = useReducer(skillReducer, [
-        {
-            id: '0',
-            name: 'Do Anything',
-            level: 1,
-        },
-    ]);
+    // const [skills, dispatch] = useReducer(skillReducer, [
+    //     {
+    //         id: '0',
+    //         name: 'Do Anything',
+    //         level: 1,
+    //     },
+    // ]);
+
+    // Test data
+    const [skills, dispatch] = useReducer(skillReducer, testData);
+    //
 
     const addSkill = (name: string, level: number) => {
         dispatch({

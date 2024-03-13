@@ -28,7 +28,7 @@ const App = () => {
     return (
         <RootProvider>
             <div className="vh-100 bg-light">
-                <Navbar sticky="top" expand="lg" className="border-bottom">
+                <Navbar sticky="top" expand="lg">
                     <Container fluid>
                         <CharacterName />
                         <Navbar.Brand className="text-center me-0" style={{ flex: 1 }}>
@@ -48,7 +48,7 @@ const App = () => {
                         </Nav>
                     </Container>
                 </Navbar>
-                <Container fluid>
+                <Container fluid className="px-0">
                     <main className="flex-fill">
                         <SkillList openSkillModal={openDoSkillModal} />
                         <NewSkillModal

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { SkillContext } from '../store/skill-context';
-import Skill from './Skill';
+import SkillButton from './SkillButton';
 import { ISkill, ISkillListProps } from '../types';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -22,14 +22,14 @@ const SkillList = ({ openSkillModal }: ISkillListProps) => {
     }, [skills]);
 
     return skillsByLevel.map((level, index) => (
-        <section key={index} className={`p-3 position-relative ${index % 2 === 0 ? 'bg-secondary' : ''}`}>
-            <Row className="position-absolute">
-                <p>Level: {index + 1}</p>
+        <section key={index} className={`p-3`}>
+            <Row className="border-bottom mb-2">
+                <p className="h6">Level {index + 1}</p>
             </Row>
             <Row className="justify-content-center gap-3">
                 {level.map((skill) => (
-                    <Col key={skill.id} lg="3" className="text-center">
-                        <Skill name={skill.name} level={skill.level} openSkillModal={openSkillModal} />
+                    <Col key={skill.id} lg="2" md="3" className="text-center">
+                        <SkillButton name={skill.name} level={skill.level} openSkillModal={openSkillModal} />
                     </Col>
                 ))}
             </Row>

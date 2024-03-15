@@ -26,13 +26,17 @@ const CharacterName = () => {
         <Nav className="d-flex flex-column" style={{ flex: 1 }}>
             <div>
                 Character Name
-                <Button variant="none btn-sm" aria-label="Edit character name" onClick={toggleEditingName}>
-                    <i className={editingName ? 'bi bi-check-square' : 'bi bi-pencil-square'}></i>
+                <Button
+                    variant="none btn-sm"
+                    aria-label={editingName ? 'Save name' : 'Edit character name'}
+                    onClick={toggleEditingName}
+                >
+                    <i className={editingName ? 'bi bi-check-square' : 'bi bi-pencil-square'} />
                 </Button>
             </div>
             {editingName ? (
                 <Form>
-                    <Form.Group className="mb-3" controlId="CharacterNameName">
+                    <Form.Group className="mb-3" controlId="CharacterName">
                         <Form.Control
                             type="text"
                             placeholder="Tom Bombadil"
@@ -44,7 +48,7 @@ const CharacterName = () => {
                     </Form.Group>
                 </Form>
             ) : (
-                <p className="h3 mb-0">{characterName}</p>
+                <h3 className="mb-0">{characterName}</h3>
             )}
         </Nav>
     );

@@ -10,11 +10,13 @@ import SkillList from './SkillList';
 import ManageXPButton from './ManageXPButton';
 import AddSkillButton from './AddSkillButton';
 import RootProvider from './RootProvider';
+import XPModal from './Modals/XPModal';
 
 const App = () => {
     const [showDoSkillModal, setShowDoSkillModal] = useState(false);
     const [activeSkill, setActiveSkill] = useState<{ name: string; level: number }>({ name: '', level: 0 });
     const [showNewSkillModal, setShowNewSkillModal] = useState(false);
+    const [showXPModal, setShowXPModal] = useState(false);
 
     const openDoSkillModal = (name: string, level: number) => {
         setActiveSkill({ name, level });
@@ -28,23 +30,23 @@ const App = () => {
     return (
         <RootProvider>
             <div className="vh-100 bg-light">
-                <Navbar sticky="top" expand="lg">
+                <Navbar sticky="top" expand="lg" className="bg-light">
                     <Container fluid>
                         <CharacterName />
                         <Navbar.Brand className="text-center me-0" style={{ flex: 1 }}>
-                            <span className="h1">Laces</span>
-                            <br />
-                            <span className="h6">
+                            <h1 className="mb-0">Laces</h1>
+                            <p className="h6 mb-0">
                                 The unofficial{' '}
                                 <a href="https://rollforshoes.com" title="Roll for Shoes official site">
                                     Roll for Shoes
                                 </a>{' '}
                                 companion app
-                            </span>
+                            </p>
                         </Navbar.Brand>
                         <Nav className="justify-content-end" style={{ flex: 1 }}>
                             <AddSkillButton showNewSkillModal={() => setShowNewSkillModal(true)} />
-                            <ManageXPButton />
+                            <ManageXPButton toggleXPModal={() => setShowXPModal(!showXPModal)} />
+                            <XPModal show={showXPModal} hide={() => setShowXPModal(false)} />
                         </Nav>
                     </Container>
                 </Navbar>

@@ -32,16 +32,16 @@ const skillReducer = (
 };
 
 const SkillContextProvider = ({ children }: { children: ReactNode }) => {
-    // const [skills, dispatch] = useReducer(skillReducer, [
-    //     {
-    //         id: '0',
-    //         name: 'Do Anything',
-    //         level: 1,
-    //     },
-    // ]);
+    const [skills, dispatch] = useReducer(skillReducer, [
+        {
+            id: '0',
+            name: 'Do Anything',
+            level: 1,
+        },
+    ]);
 
     // Test data
-    const [skills, dispatch] = useReducer(skillReducer, testData);
+    // const [skills, dispatch] = useReducer(skillReducer, testData);
     //
 
     const addSkill = (name: string, level: number) => {

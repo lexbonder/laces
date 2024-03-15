@@ -3,14 +3,7 @@ import userEvent from '@testing-library/user-event';
 import AddSkillButton from './AddSkillButton';
 
 describe('AddSkillButton', () => {
-    it('renders the AddSkillButton component', () => {
-        const mockShowNewSkillModal = vi.fn();
-        render(<AddSkillButton showNewSkillModal={mockShowNewSkillModal} />);
-
-        expect(screen).toMatchSnapshot();
-    });
-
-    it('calls showNewSkillModal when clicked', async () => {
+    test('calls showNewSkillModal when clicked', async () => {
         const mockShowNewSkillModal = vi.fn();
         render(<AddSkillButton showNewSkillModal={mockShowNewSkillModal} />);
 

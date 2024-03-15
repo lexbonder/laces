@@ -62,9 +62,9 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetAc
     };
 
     return (
-        <Modal show={show} onHide={hide} onExited={handleResetModal}>
+        <Modal show={show} onHide={hide} onExited={handleResetModal} aria-labelledby="do-skill-modal-title">
             <Modal.Header closeButton>
-                <Modal.Title>
+                <Modal.Title id="do-skill-modal-title">
                     {skillName} {level}
                 </Modal.Title>
             </Modal.Header>

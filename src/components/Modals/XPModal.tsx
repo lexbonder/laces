@@ -8,9 +8,9 @@ const XPModal = ({ show, hide }: IXPModalProps) => {
     const { xp, addXP, reduceXP } = useContext(XPContext);
 
     return (
-        <Modal show={show} onHide={hide}>
-            <Modal.Header>
-                <Modal.Title>Manage XP</Modal.Title>
+        <Modal show={show} onHide={hide} aria-labelledby="manage-xp-modal-title">
+            <Modal.Header closeButton>
+                <Modal.Title id="manage-xp-modal-title">Manage XP</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <p>Add or remove XP here</p>

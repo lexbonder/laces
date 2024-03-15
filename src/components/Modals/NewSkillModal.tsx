@@ -39,9 +39,9 @@ const NewSkillModal: FC<INewSkillModalProps> = ({ prevLevel, show, hide, resetAc
     };
 
     return (
-        <Modal show={show} onHide={hide} onExited={handleResetModal}>
+        <Modal show={show} onHide={hide} onExited={handleResetModal} aria-labelledby="new-skill-modal-title">
             <Modal.Header closeButton>
-                <Modal.Title>Add New Skill</Modal.Title>
+                <Modal.Title id="new-skill-modal-title">Add New Skill</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form.Group controlId="skillName">

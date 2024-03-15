@@ -66,3 +66,7 @@ export interface IXPModalProps {
     show: boolean;
     hide: () => void;
 }
+
+export interface IManageXPButtonProps {
+    toggleXPModal: () => void;
+}

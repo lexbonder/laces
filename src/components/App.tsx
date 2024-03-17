@@ -46,21 +46,21 @@ const App = () => {
                         <Nav className="justify-content-end" style={{ flex: 1 }}>
                             <AddSkillButton showNewSkillModal={() => setShowNewSkillModal(true)} />
                             <ManageXPButton toggleXPModal={() => setShowXPModal(!showXPModal)} />
-                            <XPModal show={showXPModal} hide={() => setShowXPModal(false)} />
                         </Nav>
                     </Container>
                 </Navbar>
                 <Container fluid className="px-0">
                     <main className="flex-fill">
                         <SkillList openSkillModal={openDoSkillModal} />
-                        <NewSkillModal
-                            prevLevel={activeSkill.level}
-                            show={showNewSkillModal}
-                            hide={() => setShowNewSkillModal(false)}
-                            resetActiveSkill={resetActiveSkill}
-                        />
                     </main>
                 </Container>
+                <XPModal show={showXPModal} hide={() => setShowXPModal(false)} />
+                <NewSkillModal
+                    prevLevel={activeSkill.level}
+                    show={showNewSkillModal}
+                    hide={() => setShowNewSkillModal(false)}
+                    resetActiveSkill={resetActiveSkill}
+                />
                 <DoSkillModal
                     skillName={activeSkill.name}
                     level={activeSkill.level}

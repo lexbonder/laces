@@ -43,7 +43,7 @@ describe('App', () => {
     test('render the ManageXPModal', async () => {
         render(<App />);
 
-        const manageXPButton = screen.getByRole('button', { name: /xp:/i });
+        const manageXPButton = screen.getByRole('button', { name: /^XP:/ });
         await userEvent.click(manageXPButton);
 
         const xpModal = screen.getByRole('dialog', { name: 'Manage XP' });

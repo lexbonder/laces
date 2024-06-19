@@ -11,20 +11,21 @@ import ManageXPButton from './ManageXPButton';
 import AddSkillButton from './AddSkillButton';
 import RootProvider from './RootProvider';
 import XPModal from './Modals/XPModal';
+import { Skill } from '../store/skill-context';
 
 const App = () => {
     const [showDoSkillModal, setShowDoSkillModal] = useState(false);
-    const [activeSkill, setActiveSkill] = useState<{ name: string; level: number }>({ name: '', level: 0 });
+    const [activeSkill, setActiveSkill] = useState<Skill>();
     const [showNewSkillModal, setShowNewSkillModal] = useState(false);
     const [showXPModal, setShowXPModal] = useState(false);
 
-    const openDoSkillModal = (name: string, level: number) => {
-        setActiveSkill({ name, level });
+    const openDoSkillModal = (chosenSkill: Skill) => {
+        setActiveSkill(chosenSkill);
         setShowDoSkillModal(true);
     };
 
     const resetActiveSkill = () => {
-        setActiveSkill({ name: '', level: 0 });
+        setActiveSkill(undefined);
     };
 
     return (
@@ -55,20 +56,25 @@ const App = () => {
                     </main>
                 </Container>
                 <XPModal show={showXPModal} hide={() => setShowXPModal(false)} />
-                <NewSkillModal
-                    prevLevel={activeSkill.level}
-                    show={showNewSkillModal}
-                    hide={() => setShowNewSkillModal(false)}
-                    resetActiveSkill={resetActiveSkill}
-                />
-                <DoSkillModal
-                    skillName={activeSkill.name}
-                    level={activeSkill.level}
-                    show={showDoSkillModal}
-                    hide={() => setShowDoSkillModal(false)}
-                    openNewSkillModal={() => setShowNewSkillModal(true)}
-                    resetActiveSkill={resetActiveSkill}
-                />
+                {activeSkill && (
+                    <>
+                        (
+                        <NewSkillModal
+                            activeSkill={activeSkill!}
+                            show={showNewSkillModal}
+                            hide={() => setShowNewSkillModal(false)}
+                            resetActiveSkill={resetActiveSkill}
+                        />
+                        <DoSkillModal
+                            activeSkill={activeSkill!}
+                            show={showDoSkillModal}
+                            hide={() => setShowDoSkillModal(false)}
+                            openNewSkillModal={() => setShowNewSkillModal(true)}
+                            resetActiveSkill={resetActiveSkill}
+                        />
+                        )
+                    </>
+                )}
             </div>
         </RootProvider>
     );

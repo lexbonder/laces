@@ -1,3 +1,5 @@
+import { Skill } from './store/skill-context';
+
 export interface Actions<T> {
     readonly type: string;
     payload: T;
@@ -14,18 +16,16 @@ export interface IDiceResult {
 }
 
 export interface ISkillListProps {
-    openSkillModal: (name: string, level: number) => void;
+    openSkillModal: (skill: Skill) => void;
 }
 
 export interface ISkillProps {
-    openSkillModal: (name: string, level: number) => void;
-    name: string;
-    level: number;
+    skill: Skill;
+    openSkillModal: (skill: Skill) => void;
 }
 
 export interface IDoSkillModalProps {
-    skillName: string;
-    level: number;
+    activeSkill: Skill;
     show: boolean;
     hide: () => void;
     openNewSkillModal: () => void;
@@ -33,8 +33,8 @@ export interface IDoSkillModalProps {
 }
 
 export interface INewSkillModalProps {
+    activeSkill: Skill;
     show: boolean;
-    prevLevel?: number;
     hide: () => void;
     resetActiveSkill: () => void;
 }
@@ -47,13 +47,14 @@ export interface ISkill {
     id: string;
     name: string;
     level: number;
+    children: ISkill[];
 }
 
 export interface ISkillContext {
-    skills: ISkill[];
-    addSkill: (name: string, level: number) => void;
-    editSkill: (id: string, name: string) => void;
-    deleteSkill: (id: string) => void;
+    skills: Skill;
+    // addSkill: (name: string, level: number) => void;
+    // editSkill: (id: string, name: string) => void;
+    // deleteSkill: (id: string) => void;
 }
 
 export interface IXPContext {

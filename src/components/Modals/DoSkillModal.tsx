@@ -11,7 +11,7 @@ import Die from '../Die';
 import { XPContext } from '../../store/xp-context';
 import { IDoSkillModalProps } from '../../types';
 
-const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetActiveSkill }: IDoSkillModalProps) => {
+const DoSkillModal = ({ activeSkill, show, hide, openNewSkillModal, resetActiveSkill }: IDoSkillModalProps) => {
     const { xp, addXP, reduceXP } = useContext(XPContext);
     const [rolled, setRolled] = useState(false);
     const [total, setTotal] = useState(0);
@@ -20,7 +20,7 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetAc
     const [diceToRender, setDiceToRender] = useState<number[]>([]);
 
     const handleDiceRoll = () => {
-        const { rolls, total, pipsToMax } = rollDice(level);
+        const { rolls, total, pipsToMax } = rollDice(activeSkill.level);
         setDiceToRender(rolls);
         setTotal(total);
         setPipsToMax(pipsToMax);
@@ -65,7 +65,7 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetAc
         <Modal show={show} onHide={hide} onExited={handleResetModal} aria-labelledby="do-skill-modal-title">
             <Modal.Header closeButton>
                 <Modal.Title id="do-skill-modal-title">
-                    {skillName} {level}
+                    {activeSkill.name} {activeSkill.level}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -85,7 +85,7 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetAc
                                 </Row>
                             </>
                         ) : (
-                            [...Array(level)].map((_, index) => (
+                            [...Array(activeSkill.level)].map((_, index) => (
                                 <Col key={index} md="auto">
                                     <RollingDie />
                                 </Col>
@@ -109,6 +109,7 @@ const DoSkillModal = ({ skillName, level, show, hide, openNewSkillModal, resetAc
                                 }
                                 checked={newSkillChecked}
                                 onChange={() => setNewSkillChecked(!newSkillChecked)}
+                                // Future State - xp per dice vs. xp per pip
                                 disabled={pipsToMax === 0 || pipsToMax > xp}
                             />
                         </div>

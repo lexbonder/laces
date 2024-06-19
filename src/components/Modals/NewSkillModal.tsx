@@ -1,40 +1,19 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Modal from 'react-bootstrap/Modal';
 import { INewSkillModalProps } from '../../types';
-import { SkillContext } from '../../store/skill-context';
 
-const NewSkillModal: FC<INewSkillModalProps> = ({ prevLevel, show, hide, resetActiveSkill }) => {
-    const { addSkill } = useContext(SkillContext);
+const NewSkillModal = ({ activeSkill, show, hide, resetActiveSkill }: INewSkillModalProps) => {
     const [skillName, setSkillName] = useState('');
-    const [skillLevel, setSkillLevel] = useState(2);
-
-    useEffect(() => {
-        if (prevLevel) {
-            setSkillLevel(prevLevel + 1);
-        }
-    }, [prevLevel]);
-
-    const decrement = () => {
-        if (skillLevel > 2) {
-            setSkillLevel(skillLevel - 1);
-        }
-    };
-
-    const increment = () => {
-        setSkillLevel(skillLevel + 1);
-    };
 
     const handleResetModal = () => {
         setSkillName('');
-        setSkillLevel(2);
         resetActiveSkill();
     };
 
     const handleSubmit = () => {
-        addSkill(skillName, skillLevel);
+        activeSkill.addSkill(skillName);
         hide();
     };
 
@@ -56,15 +35,7 @@ const NewSkillModal: FC<INewSkillModalProps> = ({ prevLevel, show, hide, resetAc
                 <br />
                 <Form.Group controlId="skillLevel">
                     <Form.Label>Skill Level</Form.Label>
-                    <InputGroup>
-                        <Button variant="secondary" onClick={decrement} disabled={skillLevel <= 2 || !!prevLevel}>
-                            -
-                        </Button>
-                        <Form.Control value={skillLevel} readOnly />
-                        <Button variant="secondary" onClick={increment} disabled={!!prevLevel}>
-                            +
-                        </Button>
-                    </InputGroup>
+                    <Form.Control value={activeSkill.level + 1} readOnly />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>
@@ -80,3 +51,34 @@ const NewSkillModal: FC<INewSkillModalProps> = ({ prevLevel, show, hide, resetAc
 };
 
 export default NewSkillModal;
+
+/* Save for DM skill management (but also, maybe no case is needed for manual skill entry)
+
+    useEffect(() => {
+        if () {
+            setSkillLevel(prevLevel + 1);
+        }
+    }, [prevLevel]);
+
+    const decrement = () => {
+        if (skillLevel > 2) {
+            setSkillLevel(skillLevel - 1);
+        }
+    };
+
+    const increment = () => {
+        setSkillLevel(skillLevel + 1);
+    };
+
+    <InputGroup>
+        <Button variant="secondary" onClick={decrement} disabled={skillLevel <= 2 || !!prevLevel}>
+            -
+        </Button>
+        <Button variant="secondary" onClick={increment} disabled={!!prevLevel}>
+            +
+        </Button>
+    </InputGroup>
+
+
+
+*/

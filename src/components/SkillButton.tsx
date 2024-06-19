@@ -1,10 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import { ISkillProps } from '../types';
 
-function SkillButton({ name, level, openSkillModal }: ISkillProps) {
+function SkillButton({ skill, openSkillModal }: ISkillProps) {
+    console.log(skill);
     return (
-        <Button variant="dark" size="lg" onClick={() => openSkillModal(name, level)}>
-            {name}
+        <Button variant="dark" size="lg" onClick={() => openSkillModal(skill)}>
+            {skill.name}
         </Button>
     );
 }

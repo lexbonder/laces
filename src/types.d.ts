@@ -33,7 +33,7 @@ export interface IDoSkillModalProps {
 }
 
 export interface INewSkillModalProps {
-    activeSkill: Skill;
+    activeSkill: Skill?;
     show: boolean;
     hide: () => void;
     resetActiveSkill: () => void;
@@ -47,14 +47,13 @@ export interface ISkill {
     id: string;
     name: string;
     level: number;
-    children: ISkill[];
 }
 
 export interface ISkillContext {
-    skills: Skill;
-    // addSkill: (name: string, level: number) => void;
-    // editSkill: (id: string, name: string) => void;
-    // deleteSkill: (id: string) => void;
+    skills: Skill[];
+    addSkill: (name: string, level: number) => void;
+    editSkill: (id: string, name: string) => void;
+    deleteSkill: (id: string) => void;
 }
 
 export interface IXPContext {

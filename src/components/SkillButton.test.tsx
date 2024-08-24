@@ -3,23 +3,29 @@ import SkillButton from './SkillButton';
 import userEvent from '@testing-library/user-event';
 
 describe('SkillButton', () => {
-    it.skip('should render a Skill Button', () => {
-        const mockName = 'Do Anything';
-        const mockLevel = 1;
+    it('should render a Skill Button', () => {
+        const mockSkill = {
+            name: 'Do Anything',
+            level: 1,
+            id: 'abcde',
+        };
         const mockOpenSkillModal = vi.fn();
 
-        render(<SkillButton name={mockName} level={mockLevel} openSkillModal={mockOpenSkillModal} />);
+        render(<SkillButton skill={mockSkill} openSkillModal={mockOpenSkillModal} />);
     });
 
     it('should call openSkillModal when clicked', async () => {
-        const mockName = 'Do Anything';
-        const mockLevel = 1;
+        const mockSkill = {
+            name: 'Do Anything',
+            level: 1,
+            id: 'bcdef',
+        };
         const mockOpenSkillModal = vi.fn();
 
-        render(<SkillButton name={mockName} level={mockLevel} openSkillModal={mockOpenSkillModal} />);
+        render(<SkillButton skill={mockSkill} openSkillModal={mockOpenSkillModal} />);
 
-        await userEvent.click(screen.getByText(mockName));
+        await userEvent.click(screen.getByText(mockSkill.name));
 
-        expect(mockOpenSkillModal).toHaveBeenCalledWith(mockName, mockLevel);
+        expect(mockOpenSkillModal).toHaveBeenCalledWith(mockSkill);
     });
 });

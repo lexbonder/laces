@@ -1,118 +1,84 @@
 import { ReactNode, createContext, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
 import { Actions, ISkill, ISkillContext } from '../types';
-// import { ADD_SKILL, DELETE_SKILL, EDIT_SKILL, isGenericAction } from '../action-types';
+import { ADD_SKILL, DELETE_SKILL, EDIT_SKILL, isGenericAction } from '../action-types';
 // import { testData } from '../mockData/test-skills';
 
 export class Skill {
     id: string;
     name: string;
     level: number;
-    children: Skill[];
-    indexInParent?: number;
-    deleteSelf?: () => void;
 
-    constructor(name: string, level: number, indexInParent?: number) {
+    constructor(name: string, level: number) {
         this.id = uuid();
         this.name = name;
         this.level = level;
-        this.indexInParent = indexInParent;
-        this.children = [];
     }
-
-    addSkill = (name: string) => {
-        const newSkill = new Skill(name, this.level + 1, this.children.length);
-        newSkill.deleteSelf = () => {
-            this.children.splice(newSkill.indexInParent!, 1);
-        };
-        this.children.push(newSkill);
-    };
-
-    editSkillName = (name: string) => {
-        this.name = name;
-    };
 }
 
 export const SkillContext = createContext<ISkillContext>({
-    skills: new Skill('Do Anything', 1),
-    // addSkill: () => {},
-    // editSkill: () => {},
-    // deleteSkill: () => {},
+    skills: [new Skill('Do Anything', 1)],
+    addSkill: () => {},
+    editSkill: () => {},
+    deleteSkill: () => {},
 });
 
-export const SkillTreeRoot = new Skill('Do Anything', 1);
-
 const skillReducer = (
-    state: Skill,
-    action: Actions<ISkill> | Actions<{ id: string; name: string }> | Actions<{ id: string }>
+    state: Skill[],
+    action: Actions<{ name: string; level: number }> | Actions<{ id: string; name: string }> | Actions<{ id: string }>
 ) => {
-    // if (action.type === ADD_SKILL && isGenericAction<ISkill>(action)) {
-    //     return [...state, action.payload];
-    // } else if (action.type === EDIT_SKILL && isGenericAction<{ id: string; name: string }>(action)) {
-    //     return state.map((skill) => {
-    //         if (skill.id === action.payload.id) {
-    //             skill.name = action.payload.name;
-    //         }
-    //         return skill;
-    //     });
-    // } else if (action.type === DELETE_SKILL && isGenericAction<{ id: string }>(action)) {
-    //     return state.filter((skill) => skill.id !== action.payload.id);
-    // } else {
-    return state;
-    // }
+    if (action.type === ADD_SKILL && isGenericAction<ISkill>(action)) {
+        return [...state, action.payload];
+    } else if (action.type === EDIT_SKILL && isGenericAction<{ id: string; name: string }>(action)) {
+        return state.map((skill) => {
+            if (skill.id === action.payload.id) {
+                skill.name = action.payload.name;
+            }
+            return skill;
+        });
+    } else if (action.type === DELETE_SKILL && isGenericAction<{ id: string }>(action)) {
+        return state.filter((skill) => skill.id !== action.payload.id);
+    } else {
+        return state;
+    }
 };
 
 const SkillContextProvider = ({ children }: { children: ReactNode }) => {
-    const [skills] = useReducer(skillReducer, new Skill('Do Anything', 1));
+    const [skills, dispatch] = useReducer(skillReducer, [new Skill('Do Anything', 1)]);
 
     // Test data
     // const [skills, dispatch] = useReducer(skillReducer, testData);
     //
 
-    /*
-        skills: [
-            {
-                name: 'Do anything',
-                level: 1,
-                id: 'asdf1234',
-                children: [
+    const addSkill = (name: string, level: number) => {
+        dispatch({
+            type: ADD_SKILL,
+            payload: new Skill(name, level),
+        });
+    };
 
-                ]
-            }
-        ]
-    */
+    const editSkill = (id: string, name: string) => {
+        dispatch({
+            type: EDIT_SKILL,
+            payload: {
+                id,
+                name,
+            },
+        });
+    };
 
-    // const addSkill = (name: string, level: number) => {
-    //     dispatch({
-    //         type: ADD_SKILL,
-    //         payload: {
-    //             name,
-    //             level,
-    //             id: uuid(),
-    //         },
-    //     });
-    // };
+    const deleteSkill = (id: string) => {
+        dispatch({
+            type: DELETE_SKILL,
+            payload: {
+                id,
+            },
+        });
+    };
 
-    // const editSkill = (id: string, name: string) => {
-    //     dispatch({
-    //         type: EDIT_SKILL,
-    //         payload: {
-    //             id,
-    //             name,
-    //         },
-    //     });
-    // };
-
-    // const deleteSkill = (id: string) => {
-    //     dispatch({
-    //         type: DELETE_SKILL,
-    //         payload: {
-    //             id,
-    //         },
-    //     });
-    // };
-
-    return <SkillContext.Provider value={{ skills }}>{children}</SkillContext.Provider>;
+    return (
+        <SkillContext.Provider value={{ skills, addSkill, editSkill, deleteSkill }}>{children}</SkillContext.Provider>
+    );
 };
 
 export default SkillContextProvider;

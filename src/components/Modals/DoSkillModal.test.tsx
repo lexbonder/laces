@@ -3,8 +3,11 @@ import DoSkillModal from './DoSkillModal';
 import userEvent from '@testing-library/user-event';
 
 const mockProps = {
-    skillName: 'test my app',
-    level: 3,
+    activeSkill: {
+        name: 'test my app',
+        level: 3,
+        id: 'abcdef',
+    },
     show: true,
     hide: vi.fn(),
     openNewSkillModal: vi.fn(),

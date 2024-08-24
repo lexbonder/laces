@@ -31,7 +31,7 @@ const App = () => {
     return (
         <RootProvider>
             <div className="bg-light" style={{ minHeight: '100vh' }}>
-                <Navbar sticky="top" expand="lg" className="bg-light">
+                <Navbar sticky="top" expand="lg" className="bg-light shadow-sm">
                     <Container fluid>
                         <CharacterName />
                         <Navbar.Brand className="text-center me-0" style={{ flex: 1 }}>

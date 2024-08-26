@@ -14,7 +14,7 @@ Main View <br/>
 <img width="500" alt="Laces dashboard with assortment of skills populated" src="https://github.com/user-attachments/assets/e681ae2a-495f-411e-bd85-5b6f60772968">
 
 Rolling Skill <br/>
-<img width="250" alt="Active skill modal showing dice" src="https://github.com/user-attachments/assets/c2b8de76-1626-49d1-b69a-655e9bc24f91">
+<img width="250" alt="Active skill modal showing dice" src="https://github.com/user-attachments/assets/efb73aff-59ac-438e-97c8-9361f86079c6">
 
 Roll Result <br/>
 <img width="250" alt="Active skill modal showing roll result" src="https://github.com/user-attachments/assets/172b12f5-d19c-4e0e-ae71-1fe68502a898">
